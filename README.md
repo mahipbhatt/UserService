@@ -101,4 +101,4 @@ Pull requests are welcome! Fork the repository, make your changes, and submit a 
 
 **Name:** Mahip Bhatt 
 **Email:** mahipbhatt@gmail.com  
-**GitHub:** [@your-username](https://github.com/mahipbhatt)
+**GitHub:** [mahipbhatt](https://github.com/mahipbhatt)
