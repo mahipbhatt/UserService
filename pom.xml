@@ -13,7 +13,7 @@
     </parent>
 
     <!-- Project metadata -->
-    <groupId>com.example</groupId>
+    <groupId>com.ecommerce</groupId>
     <artifactId>UserService</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>UserService</name>
