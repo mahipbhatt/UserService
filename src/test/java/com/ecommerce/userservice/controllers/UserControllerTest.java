@@ -13,17 +13,29 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
+/**
+ * Unit tests for {@link UserController}.
+ * This class tests the functionality of the UserController methods using mocked dependencies.
+ *
+ * @author mahip.bhatt
+ */
 class UserControllerTest {
 
     private UserService userService;
     private UserController userController;
 
+    /**
+     * Sets up the test environment by initializing mocked dependencies.
+     */
     @BeforeEach
     void setUp() {
         userService = mock(UserService.class);
         userController = new UserController(userService);
     }
 
+    /**
+     * Tests the getUserDetails functionality for a successful scenario.
+     */
     @Test
     void testGetUserDetailsSuccess() {
         // Arrange
@@ -40,6 +52,9 @@ class UserControllerTest {
         verify(userService, times(1)).getUserDetails(userId);
     }
 
+    /**
+     * Tests the getUserDetails functionality for a failure scenario.
+     */
     @Test
     void testGetUserDetailsFailure() {
         // Arrange
@@ -55,6 +70,9 @@ class UserControllerTest {
         verify(userService, times(1)).getUserDetails(userId);
     }
 
+    /**
+     * Tests the setUserRoles functionality for a successful scenario.
+     */
     @Test
     void testSetUserRolesSuccess() {
         // Arrange
@@ -72,6 +90,9 @@ class UserControllerTest {
         verify(userService, times(1)).setUserRoles(userId, request.getRoleIds());
     }
 
+    /**
+     * Tests the setUserRoles functionality for a failure scenario.
+     */
     @Test
     void testSetUserRolesFailure() {
         // Arrange
@@ -88,6 +109,9 @@ class UserControllerTest {
         verify(userService, times(1)).setUserRoles(userId, request.getRoleIds());
     }
 
+    /**
+     * Tests the setUserRoles functionality when the role IDs are empty.
+     */
     @Test
     void testSetUserRolesWithEmptyRoleIds() {
         // Arrange

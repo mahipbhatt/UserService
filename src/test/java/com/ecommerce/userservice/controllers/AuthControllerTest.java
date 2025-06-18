@@ -14,17 +14,29 @@ import java.util.HashSet;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
+/**
+ * Unit tests for {@link AuthController}.
+ * This class tests the functionality of the AuthController methods using mocked dependencies.
+ *
+ * @author mahip.bhatt
+ */
 class AuthControllerTest {
 
     private AuthService authService;
     private AuthController authController;
 
+    /**
+     * Sets up the test environment by initializing mocked dependencies.
+     */
     @BeforeEach
     void setUp() {
         authService = mock(AuthService.class);
         authController = new AuthController(authService);
     }
 
+    /**
+     * Tests the login functionality for a successful scenario.
+     */
     @Test
     void testLoginSuccess() {
         LoginRequestDto request = new LoginRequestDto("test@example.com", "password");
@@ -40,6 +52,9 @@ class AuthControllerTest {
         verify(authService, times(1)).login(request.getEmail(), request.getPassword());
     }
 
+    /**
+     * Tests the logout functionality for a successful scenario.
+     */
     @Test
     void testLogoutSuccess() {
         LogoutRequestDto request = new LogoutRequestDto("token", 1L);
@@ -53,6 +68,9 @@ class AuthControllerTest {
         verify(authService, times(1)).logout(request.getToken(), request.getUserId());
     }
 
+    /**
+     * Tests the sign-up functionality for a successful scenario.
+     */
     @Test
     void testSignUpSuccess() {
         SignUpRequestDto request = new SignUpRequestDto("test@example.com", "password");
@@ -67,9 +85,12 @@ class AuthControllerTest {
         verify(authService, times(1)).signUp(request.getEmail(), request.getPassword());
     }
 
+    /**
+     * Tests the token validation functionality for a successful scenario.
+     */
     @Test
     void testValidateTokenSuccess() {
-        ValidateTokenRequestDto request = new ValidateTokenRequestDto(1L, "token"); // Corrected argument order
+        ValidateTokenRequestDto request = new ValidateTokenRequestDto(1L, "token");
         SessionStatus sessionStatus = SessionStatus.ACTIVE;
 
         when(authService.validate(anyString(), anyLong())).thenReturn(sessionStatus);
@@ -78,6 +99,6 @@ class AuthControllerTest {
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(sessionStatus, response.getBody());
-        verify(authService, times(1)).validate(request.getToken(), request.getUserId()); // Corrected argument order
+        verify(authService, times(1)).validate(request.getToken(), request.getUserId());
     }
 }

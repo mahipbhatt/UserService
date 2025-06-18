@@ -1,7 +1,8 @@
-package com.ecommerce.userservice.security.service;
+package com.ecommerce.userservice.security.services;
 
 import com.ecommerce.userservice.security.models.Client;
 import com.ecommerce.userservice.security.repositories.ClientRepository;
+import com.ecommerce.userservice.security.service.JpaRegisteredClientService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
@@ -12,25 +13,37 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+/**
+ * Unit tests for {@link JpaRegisteredClientService}.
+ * This class tests the functionality of the JpaRegisteredClientService methods using mocked dependencies.
+ *
+ * @author mahip.bhatt
+ */
 class JpaRegisteredClientServiceTest {
 
     private ClientRepository clientRepository;
     private JpaRegisteredClientService registeredClientService;
 
+    /**
+     * Sets up the test environment by initializing mocked dependencies.
+     */
     @BeforeEach
     void setUp() {
         clientRepository = mock(ClientRepository.class);
         registeredClientService = new JpaRegisteredClientService(clientRepository);
     }
 
+    /**
+     * Tests the save functionality for a successful scenario.
+     */
     @Test
     void testSaveRegisteredClientSuccess() {
         // Arrange
         RegisteredClient registeredClient = RegisteredClient.withId("clientId")
                 .clientId("testClientId")
                 .clientSecret("testSecret")
-                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE) // Add valid grant type
-                .redirectUri("http://localhost:8080/callback") // Add valid redirect URI
+                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+                .redirectUri("http://localhost:8080/callback")
                 .build();
         Client clientEntity = new Client();
         when(clientRepository.save(any(Client.class))).thenReturn(clientEntity);
@@ -42,6 +55,9 @@ class JpaRegisteredClientServiceTest {
         verify(clientRepository, times(1)).save(any(Client.class));
     }
 
+    /**
+     * Tests the findById functionality for a successful scenario.
+     */
     @Test
     void testFindByIdSuccess() {
         // Arrange
@@ -49,8 +65,8 @@ class JpaRegisteredClientServiceTest {
         Client clientEntity = new Client();
         clientEntity.setId("clientId");
         clientEntity.setClientId(clientId);
-        clientEntity.setAuthorizationGrantTypes("authorization_code,refresh_token"); // Ensure authorizationGrantTypes is set
-        clientEntity.setRedirectUris("http://localhost:8080/callback"); // Mock redirectUris
+        clientEntity.setAuthorizationGrantTypes("authorization_code,refresh_token");
+        clientEntity.setRedirectUris("http://localhost:8080/callback");
         clientEntity.setClientSettings("{\"requireAuthorizationConsent\":true}");
         clientEntity.setTokenSettings("{\"accessTokenTimeToLive\":3600}");
         when(clientRepository.findById("clientId")).thenReturn(Optional.of(clientEntity));
@@ -64,6 +80,9 @@ class JpaRegisteredClientServiceTest {
         verify(clientRepository, times(1)).findById("clientId");
     }
 
+    /**
+     * Tests the findByClientId functionality for a successful scenario.
+     */
     @Test
     void testFindByClientIdSuccess() {
         // Arrange
@@ -71,8 +90,8 @@ class JpaRegisteredClientServiceTest {
         Client clientEntity = new Client();
         clientEntity.setId("clientId");
         clientEntity.setClientId(clientId);
-        clientEntity.setAuthorizationGrantTypes("authorization_code,refresh_token"); // Ensure authorizationGrantTypes is set
-        clientEntity.setRedirectUris("http://localhost:8080/callback"); // Mock redirectUris
+        clientEntity.setAuthorizationGrantTypes("authorization_code,refresh_token");
+        clientEntity.setRedirectUris("http://localhost:8080/callback");
         clientEntity.setClientSettings("{\"requireAuthorizationConsent\":true}");
         clientEntity.setTokenSettings("{\"accessTokenTimeToLive\":3600}");
         when(clientRepository.findByClientId(clientId)).thenReturn(Optional.of(clientEntity));
@@ -85,74 +104,19 @@ class JpaRegisteredClientServiceTest {
         assertEquals(clientId, registeredClient.getClientId());
         verify(clientRepository, times(1)).findByClientId(clientId);
     }
-//    }
-//    @Test
-//    void testSaveRegisteredClientSuccess() {
-//        // Arrange
-//        RegisteredClient registeredClient = RegisteredClient.withId("clientId")
-//                .clientId("testClientId")
-//                .clientSecret("testSecret")
-//                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE) // Add valid grant type
-//                .build();
-//        Client clientEntity = new Client();
-//        when(clientRepository.save(any(Client.class))).thenReturn(clientEntity);
-//
-//        // Act
-//        registeredClientService.save(registeredClient);
-//
-//        // Assert
-//        verify(clientRepository, times(1)).save(any(Client.class));
-//    }
-//
-//    @Test
-//    void testFindByIdSuccess() {
-//        // Arrange
-//    String clientId = "testClientId";
-//        Client clientEntity = new Client();
-//    clientEntity.setId("clientId");
-//    clientEntity.setClientId(clientId);
-//    clientEntity.setAuthorizationGrantTypes("authorization_code,refresh_token"); // Ensure authorizationGrantTypes is set
-//    clientEntity.setClientSettings("{\"requireAuthorizationConsent\":true}");
-//    clientEntity.setTokenSettings("{\"accessTokenTimeToLive\":3600}");
-//    when(clientRepository.findById("clientId")).thenReturn(Optional.of(clientEntity));
-//
-//        // Act
-//    RegisteredClient registeredClient = registeredClientService.findById("clientId");
-//
-//        // Assert
-//        assertNotNull(registeredClient);
-//    assertEquals(clientId, registeredClient.getClientId());
-//    verify(clientRepository, times(1)).findById("clientId");
-//    }
-//
-//    @Test
-//    void testFindByClientIdSuccess() {
-//        // Arrange
-//        String clientId = "testClientId";
-//        Client clientEntity = new Client();
-//        clientEntity.setId("clientId"); // Add valid ID
-//        clientEntity.setClientId(clientId);
-//        clientEntity.setClientSettings("{\"requireAuthorizationConsent\":true}"); // Add valid client settings
-//        clientEntity.setTokenSettings("{\"accessTokenTimeToLive\":3600}"); // Add valid token settings
-//        when(clientRepository.findByClientId(clientId)).thenReturn(Optional.of(clientEntity));
-//
-//        // Act
-//        RegisteredClient registeredClient = registeredClientService.findByClientId(clientId);
-//
-//        // Assert
-//        assertNotNull(registeredClient);
-//        assertEquals(clientId, registeredClient.getClientId());
-//        verify(clientRepository, times(1)).findByClientId(clientId);
-//    }
 
-
+    /**
+     * Tests the save functionality when the input is null.
+     */
     @Test
     void testSaveRegisteredClientWithNull() {
         // Act & Assert
         assertThrows(IllegalArgumentException.class, () -> registeredClientService.save(null));
     }
 
-
+    /**
+     * Tests the findById functionality with an invalid ID.
+     */
     @Test
     void testFindByIdWithInvalidId() {
         // Arrange
@@ -167,13 +131,18 @@ class JpaRegisteredClientServiceTest {
         verify(clientRepository, times(1)).findById(clientId);
     }
 
+    /**
+     * Tests the findById functionality when the input ID is empty.
+     */
     @Test
     void testFindByIdWithEmptyId() {
         // Act & Assert
         assertThrows(IllegalArgumentException.class, () -> registeredClientService.findById(""));
     }
 
-
+    /**
+     * Tests the findByClientId functionality with an invalid client ID.
+     */
     @Test
     void testFindByClientIdWithInvalidClientId() {
         // Arrange
@@ -188,6 +157,9 @@ class JpaRegisteredClientServiceTest {
         verify(clientRepository, times(1)).findByClientId(clientId);
     }
 
+    /**
+     * Tests the findByClientId functionality when the input client ID is empty.
+     */
     @Test
     void testFindByClientIdWithEmptyClientId() {
         // Act & Assert

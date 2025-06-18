@@ -10,17 +10,29 @@ import org.springframework.http.ResponseEntity;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
+/**
+ * Unit tests for {@link RoleController}.
+ * This class tests the functionality of the RoleController methods using mocked dependencies.
+ *
+ * @author mahip.bhatt
+ */
 class RoleControllerTest {
 
     private RoleService roleService;
     private RoleController roleController;
 
+    /**
+     * Sets up the test environment by initializing mocked dependencies.
+     */
     @BeforeEach
     void setUp() {
         roleService = mock(RoleService.class);
         roleController = new RoleController(roleService);
     }
 
+    /**
+     * Tests the createRole functionality for a successful scenario.
+     */
     @Test
     void testCreateRoleSuccess() {
         // Arrange
@@ -39,6 +51,9 @@ class RoleControllerTest {
         verify(roleService, times(1)).createRole("ADMIN");
     }
 
+    /**
+     * Tests the createRole functionality for a failure scenario.
+     */
     @Test
     void testCreateRoleFailure() {
         // Arrange
@@ -54,6 +69,9 @@ class RoleControllerTest {
         verify(roleService, times(1)).createRole("INVALID_ROLE");
     }
 
+    /**
+     * Tests the createRole functionality when the role name is empty.
+     */
     @Test
     void testCreateRoleWithEmptyName() {
         // Arrange
