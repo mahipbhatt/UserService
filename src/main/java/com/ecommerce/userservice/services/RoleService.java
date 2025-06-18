@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * Service class for managing roles in the application.
- * 
+ *
  * @author mahip.bhatt
  */
 @Service

@@ -1,18 +1,14 @@
 package com.ecommerce.userservice.security.models;
 
+import jakarta.persistence.*;
+
 import java.io.Serializable;
 import java.util.Objects;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.IdClass;
-import jakarta.persistence.Table;
 
 /**
  * Entity representing user consent for a registered client.
  * Used to store the authorities (scopes) granted by the user to the client.
- * 
+ *
  * @author mahip.bhatt
  */
 @Entity

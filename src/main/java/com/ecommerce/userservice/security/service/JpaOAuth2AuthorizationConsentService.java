@@ -1,11 +1,7 @@
 package com.ecommerce.userservice.security.service;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import com.ecommerce.userservice.security.models.AuthorizationConsent;
 import com.ecommerce.userservice.security.repositories.AuthorizationConsentRepository;
-
 import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,10 +13,13 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Service implementation of {@link OAuth2AuthorizationConsentService} for managing
  * {@link OAuth2AuthorizationConsent} entities using JPA.
- * 
+ *
  * @author mahip.bhatt
  */
 @Component
@@ -33,7 +32,7 @@ public class JpaOAuth2AuthorizationConsentService implements OAuth2Authorization
      * Constructs a new {@code JpaOAuth2AuthorizationConsentService}.
      *
      * @param authorizationConsentRepository the repository for {@link AuthorizationConsent}
-     * @param registeredClientRepository the repository for {@link RegisteredClient}
+     * @param registeredClientRepository     the repository for {@link RegisteredClient}
      */
     public JpaOAuth2AuthorizationConsentService(AuthorizationConsentRepository authorizationConsentRepository,
                                                 RegisteredClientRepository registeredClientRepository) {
@@ -70,7 +69,7 @@ public class JpaOAuth2AuthorizationConsentService implements OAuth2Authorization
      * Finds an {@link OAuth2AuthorizationConsent} by its registered client ID and principal name.
      *
      * @param registeredClientId the registered client ID
-     * @param principalName the principal name
+     * @param principalName      the principal name
      * @return the found {@link OAuth2AuthorizationConsent}, or {@code null} if not found
      */
     @Override
@@ -98,13 +97,13 @@ public class JpaOAuth2AuthorizationConsentService implements OAuth2Authorization
         OAuth2AuthorizationConsent.Builder builder = OAuth2AuthorizationConsent.withId(
                 registeredClientId, authorizationConsent.getPrincipalName());
 
-    if (authorizationConsent.getAuthorities() != null && !authorizationConsent.getAuthorities().isEmpty()) {
+        if (authorizationConsent.getAuthorities() != null && !authorizationConsent.getAuthorities().isEmpty()) {
             for (String authority : StringUtils.commaDelimitedListToSet(authorizationConsent.getAuthorities())) {
                 builder.authority(new SimpleGrantedAuthority(authority));
             }
-    } else {
-        // Provide a default authority if none are present
-        builder.authority(new SimpleGrantedAuthority("ROLE_USER"));
+        } else {
+            // Provide a default authority if none are present
+            builder.authority(new SimpleGrantedAuthority("ROLE_USER"));
         }
 
         return builder.build();

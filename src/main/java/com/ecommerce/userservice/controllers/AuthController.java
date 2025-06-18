@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * Controller for handling authentication-related operations.
  * Provides endpoints for login, logout, signup, and token validation.
- * 
+ *
  * @author mahip.bhatt
  */
 @RestController

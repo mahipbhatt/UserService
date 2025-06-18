@@ -7,7 +7,7 @@ import lombok.Setter;
 /**
  * Data Transfer Object for user sign-up requests.
  * Contains the necessary information for registering a new user.
- * 
+ *
  * @author mahip.bhatt
  */
 @Getter

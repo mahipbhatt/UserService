@@ -16,7 +16,7 @@ public interface SessionRepository extends JpaRepository<Session, Long> {
     /**
      * Retrieves a session by its token and the associated user's ID.
      *
-     * @param token the session token
+     * @param token  the session token
      * @param userId the ID of the associated user
      * @return an {@link Optional} containing the matching {@link Session}, if found
      */

@@ -1,18 +1,17 @@
 package com.ecommerce.userservice.security.repositories;
 
-import java.util.Optional;
-
 import com.ecommerce.userservice.security.models.Authorization;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 /**
  * Repository interface for managing {@link Authorization} entities.
  * Provides methods for retrieving authorizations based on various token types.
- * 
+ *
  * @author mahip.bhatt
  */
 @Repository

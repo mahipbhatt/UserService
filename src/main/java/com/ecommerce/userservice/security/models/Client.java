@@ -1,12 +1,16 @@
 package com.ecommerce.userservice.security.models;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
 import java.time.Instant;
-import jakarta.persistence.*;
 
 /**
  * Entity representing a client in the authorization system.
  * Stores details about the client, including authentication methods, grant types, and settings.
- * 
+ *
  * @author mahip.bhatt
  */
 @Entity

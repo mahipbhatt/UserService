@@ -53,17 +53,17 @@ class JpaOAuth2AuthorizationConsentServiceTest {
     @Test
     void testRemoveAuthorizationConsentSuccess() {
         // Arrange
-    AuthorizationConsent entity = new AuthorizationConsent();
-    entity.setRegisteredClientId("clientId");
-    entity.setPrincipalName("principalName");
-    entity.setAuthorities("ROLE_USER"); // Ensure authorities are set
+        AuthorizationConsent entity = new AuthorizationConsent();
+        entity.setRegisteredClientId("clientId");
+        entity.setPrincipalName("principalName");
+        entity.setAuthorities("ROLE_USER"); // Ensure authorities are set
 
-    when(authorizationConsentRepository.findByRegisteredClientIdAndPrincipalName("clientId", "principalName"))
-            .thenReturn(Optional.of(entity));
+        when(authorizationConsentRepository.findByRegisteredClientIdAndPrincipalName("clientId", "principalName"))
+                .thenReturn(Optional.of(entity));
 
-    OAuth2AuthorizationConsent consent = OAuth2AuthorizationConsent.withId("clientId", "principalName")
-            .authority(new SimpleGrantedAuthority("ROLE_USER")) // Add valid authority
-            .build();
+        OAuth2AuthorizationConsent consent = OAuth2AuthorizationConsent.withId("clientId", "principalName")
+                .authority(new SimpleGrantedAuthority("ROLE_USER")) // Add valid authority
+                .build();
 
         // Act
         authorizationConsentService.remove(consent);

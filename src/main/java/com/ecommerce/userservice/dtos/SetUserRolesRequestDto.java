@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Data Transfer Object for setting roles for a user.
  * Contains the list of role IDs to be assigned to the user.
- * 
+ *
  * @author mahip.bhatt
  */
 @Getter

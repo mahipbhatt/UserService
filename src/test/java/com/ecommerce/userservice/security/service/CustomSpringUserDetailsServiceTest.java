@@ -2,10 +2,8 @@ package com.ecommerce.userservice.security.service;
 
 import com.ecommerce.userservice.models.User;
 import com.ecommerce.userservice.repositories.UserRepository;
-import com.ecommerce.userservice.security.models.CustomSpringUserDetails;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 

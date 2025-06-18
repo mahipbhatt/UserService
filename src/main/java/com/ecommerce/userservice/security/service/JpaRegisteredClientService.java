@@ -1,10 +1,5 @@
 package com.ecommerce.userservice.security.service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import com.ecommerce.userservice.security.models.Client;
 import com.ecommerce.userservice.security.repositories.ClientRepository;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -24,9 +19,14 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 /**
  * Service implementation for managing {@link RegisteredClient} entities using JPA.
- * 
+ *
  * @author mahip.bhatt
  */
 @Component
@@ -99,7 +99,7 @@ public class JpaRegisteredClientService implements RegisteredClientRepository {
         Set<String> clientAuthenticationMethods = StringUtils.commaDelimitedListToSet(client.getClientAuthenticationMethods());
         Set<String> authorizationGrantTypes = StringUtils.commaDelimitedListToSet(client.getAuthorizationGrantTypes());
         Set<String> redirectUris = StringUtils.commaDelimitedListToSet(client.getRedirectUris());
-        Set<String> postLogoutRedirectUris = StringUtils.commaDelimitedListToSet(client.getPostLogoutRedirectUris());
+        Set<String> postLogoutRedirectUris = StringUtils.commaDelimitedListToSet(client.getRedirectUris());
         Set<String> clientScopes = StringUtils.commaDelimitedListToSet(client.getScopes());
 
         RegisteredClient.Builder builder = RegisteredClient.withId(client.getId())
@@ -120,6 +120,7 @@ public class JpaRegisteredClientService implements RegisteredClientRepository {
 
         builder.clientSettings(ClientSettings.withSettings(parseMap(client.getClientSettings())).build());
         builder.tokenSettings(TokenSettings.withSettings(parseMap(client.getTokenSettings())).build());
+        redirectUris.forEach(builder::redirectUri);
 
         return builder.build();
     }
@@ -168,10 +169,11 @@ public class JpaRegisteredClientService implements RegisteredClientRepository {
             return Map.of(); // Return an empty map if the input is null or empty
         }
         try {
-        // Ensure the ObjectMapper does not expect type information
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_INVALID_SUBTYPE, false);
-        return mapper.readValue(data, new TypeReference<Map<String, Object>>() {});
+            // Ensure the ObjectMapper does not expect type information
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.configure(com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_INVALID_SUBTYPE, false);
+            return mapper.readValue(data, new TypeReference<Map<String, Object>>() {
+            });
         } catch (Exception ex) {
             throw new IllegalArgumentException("Failed to parse JSON: " + ex.getMessage(), ex);
         }

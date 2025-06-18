@@ -1,25 +1,13 @@
 package com.ecommerce.userservice.security.service;
 
-import java.time.Instant;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.function.Consumer;
-
 import com.ecommerce.userservice.security.models.Authorization;
 import com.ecommerce.userservice.security.repositories.AuthorizationRepository;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.security.jackson2.SecurityJackson2Modules;
-import org.springframework.security.oauth2.core.AuthorizationGrantType;
-import org.springframework.security.oauth2.core.OAuth2AccessToken;
-import org.springframework.security.oauth2.core.OAuth2DeviceCode;
-import org.springframework.security.oauth2.core.OAuth2RefreshToken;
-import org.springframework.security.oauth2.core.OAuth2Token;
-import org.springframework.security.oauth2.core.OAuth2UserCode;
+import org.springframework.security.oauth2.core.*;
 import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
 import org.springframework.security.oauth2.core.oidc.OidcIdToken;
 import org.springframework.security.oauth2.core.oidc.endpoint.OidcParameterNames;
@@ -34,9 +22,15 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
+import java.time.Instant;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.function.Consumer;
+
 /**
  * Service implementation for managing OAuth2 authorizations using JPA.
- * 
+ *
  * @author mahip.bhatt
  */
 @Component
@@ -49,7 +43,7 @@ public class JpaOAuth2AuthorizationService implements OAuth2AuthorizationService
     /**
      * Constructs a new instance of {@link JpaOAuth2AuthorizationService}.
      *
-     * @param authorizationRepository the repository for managing authorizations
+     * @param authorizationRepository    the repository for managing authorizations
      * @param registeredClientRepository the repository for managing registered clients
      */
     public JpaOAuth2AuthorizationService(AuthorizationRepository authorizationRepository, RegisteredClientRepository registeredClientRepository) {
@@ -160,7 +154,7 @@ public class JpaOAuth2AuthorizationService implements OAuth2AuthorizationService
      * Sets token values for an {@link Authorization} entity.
      *
      * @param authorization the OAuth2Authorization object
-     * @param entity the authorization entity
+     * @param entity        the authorization entity
      */
     private void setTokenValues(OAuth2Authorization authorization, Authorization entity) {
         OAuth2Authorization.Token<OAuth2AuthorizationCode> authorizationCode = authorization.getToken(OAuth2AuthorizationCode.class);
@@ -192,7 +186,7 @@ public class JpaOAuth2AuthorizationService implements OAuth2AuthorizationService
      * Sets token values for a builder.
      *
      * @param builder the OAuth2Authorization builder
-     * @param entity the authorization entity
+     * @param entity  the authorization entity
      */
     private void setToken(OAuth2Authorization.Builder builder, Authorization entity) {
         if (entity.getAuthorizationCodeValue() != null) {
@@ -229,11 +223,11 @@ public class JpaOAuth2AuthorizationService implements OAuth2AuthorizationService
     /**
      * Sets token values using consumers.
      *
-     * @param token the token
+     * @param token              the token
      * @param tokenValueConsumer the consumer for token value
-     * @param issuedAtConsumer the consumer for issued at
-     * @param expiresAtConsumer the consumer for expires at
-     * @param metadataConsumer the consumer for metadata
+     * @param issuedAtConsumer   the consumer for issued at
+     * @param expiresAtConsumer  the consumer for expires at
+     * @param metadataConsumer   the consumer for metadata
      */
     private void setTokenValues(OAuth2Authorization.Token<?> token, Consumer<String> tokenValueConsumer, Consumer<Instant> issuedAtConsumer, Consumer<Instant> expiresAtConsumer, Consumer<String> metadataConsumer) {
         if (token != null) {
@@ -252,8 +246,12 @@ public class JpaOAuth2AuthorizationService implements OAuth2AuthorizationService
      * @return the parsed map
      */
     private Map<String, Object> parseMap(String data) {
+        if (data == null || data.isEmpty()) {
+            return Map.of(); // Return an empty map if the input is null or empty
+        }
         try {
-            return this.objectMapper.readValue(data, new TypeReference<Map<String, Object>>() {});
+            return this.objectMapper.readValue(data, new TypeReference<Map<String, Object>>() {
+            });
         } catch (Exception ex) {
             throw new IllegalArgumentException("Failed to parse JSON: " + ex.getMessage(), ex);
         }

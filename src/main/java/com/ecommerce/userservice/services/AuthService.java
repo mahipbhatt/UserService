@@ -34,9 +34,9 @@ public class AuthService {
     /**
      * Constructor for AuthService.
      *
-     * @param userRepository         the user repository
-     * @param sessionRepository      the session repository
-     * @param bCryptPasswordEncoder  the password encoder
+     * @param userRepository        the user repository
+     * @param sessionRepository     the session repository
+     * @param bCryptPasswordEncoder the password encoder
      */
     public AuthService(UserRepository userRepository, SessionRepository sessionRepository,
                        BCryptPasswordEncoder bCryptPasswordEncoder) {

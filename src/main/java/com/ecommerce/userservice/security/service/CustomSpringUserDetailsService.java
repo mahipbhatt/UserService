@@ -8,11 +8,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-
 /**
  * Service implementation of {@link UserDetailsService} to load user-specific data for authentication.
- * 
+ *
  * @author mahip.bhatt
  */
 @Service

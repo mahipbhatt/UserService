@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * Controller for managing roles in the application.
  * Provides an endpoint for creating new roles.
- * 
+ *
  * @author mahip.bhatt
  */
 @RestController

@@ -7,7 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 /**
  * Configuration class for Spring Security.
  * Provides security-related beans for the application.
- * 
+ *
  * @author mahip.bhatt
  */
 @Configuration

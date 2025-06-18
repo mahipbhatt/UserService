@@ -1,16 +1,15 @@
 package com.ecommerce.userservice.security.repositories;
 
-import java.util.Optional;
-
 import com.ecommerce.userservice.security.models.Client;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
 
 /**
  * Repository interface for managing {@link Client} entities.
  * Provides methods for retrieving clients based on their client ID.
- * 
+ *
  * @author mahip.bhatt
  */
 @Repository

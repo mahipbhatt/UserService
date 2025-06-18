@@ -13,7 +13,7 @@ import java.util.Set;
 
 /**
  * Service class for managing user-related operations.
- * 
+ *
  * @author mahip.bhatt
  */
 @Service

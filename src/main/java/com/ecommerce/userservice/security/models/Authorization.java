@@ -1,15 +1,16 @@
 package com.ecommerce.userservice.security.models;
 
-import java.time.Instant;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+import java.time.Instant;
+
 /**
  * Entity representing an authorization record.
  * Stores details about authorization codes, tokens, and related metadata.
- * 
+ *
  * @author mahip.bhatt
  */
 @Entity
@@ -97,6 +98,7 @@ public class Authorization {
 
     /**
      * Gets the unique identifier of the authorization.
+     *
      * @return the authorization ID
      */
     public String getId() {
@@ -105,6 +107,7 @@ public class Authorization {
 
     /**
      * Sets the unique identifier of the authorization.
+     *
      * @param id the authorization ID
      */
     public void setId(String id) {

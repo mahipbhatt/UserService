@@ -7,7 +7,7 @@ import lombok.Setter;
 /**
  * Data Transfer Object for token validation requests.
  * Contains the necessary information to validate a user's token.
- * 
+ *
  * @author mahip.bhatt
  */
 @Getter

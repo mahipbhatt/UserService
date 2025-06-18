@@ -7,7 +7,7 @@ import lombok.Setter;
 /**
  * Data Transfer Object for user login requests.
  * Contains the necessary information for user authentication.
- * 
+ *
  * @author mahip.bhatt
  */
 @Getter

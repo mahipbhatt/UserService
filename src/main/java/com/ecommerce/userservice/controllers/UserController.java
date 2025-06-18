@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 /**
  * Controller for managing user-related operations.
  * Provides endpoints for retrieving user details and setting user roles.
- * 
+ *
  * @author mahip.bhatt
  */
 @RestController

@@ -7,7 +7,7 @@ import lombok.Setter;
 /**
  * Data Transfer Object for creating a new role.
  * Contains the necessary information to create a role.
- * 
+ *
  * @author mahip.bhatt
  */
 @Getter
